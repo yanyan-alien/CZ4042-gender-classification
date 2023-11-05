@@ -8,11 +8,11 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader, Dataset
 from torchvision import datasets, transforms, models
 
-ds_adience=deeplake.load('hub://activeloop/adience')
+ds_adience=deeplake.load('hub://activeloop/adience', reset=True)
 
-ds_celebA_train = deeplake.load("hub://activeloop/celeb-a-train")
-ds_celebA_val = deeplake.load("hub://activeloop/celeb-a-val")
-ds_celebA_test = deeplake.load("hub://activeloop/celeb-a-test")
+ds_celebA_train = deeplake.load("hub://activeloop/celeb-a-train", reset=True)
+ds_celebA_val = deeplake.load("hub://activeloop/celeb-a-val", reset=True)
+ds_celebA_test = deeplake.load("hub://activeloop/celeb-a-test", reset=True)
 
 tform={
     'train': transforms.Compose([
