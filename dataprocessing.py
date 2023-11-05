@@ -1,12 +1,5 @@
 import deeplake
-import numpy as np
-from PIL import Image
-import torch
-import torch.nn as nn
-import torch.optim as optim
-import torch.nn.functional as F
-from torch.utils.data import DataLoader, Dataset
-from torchvision import datasets, transforms, models
+from torchvision import transforms
 
 class DataLoaderWrapper:
     def __init__(self,batch_size=32) -> None:
@@ -42,5 +35,3 @@ class DataLoaderWrapper:
     def initialize_adience_dataloaders(self):
         adience_dataloader = self.ds_adience.pytorch(batch_size=self.batch_size, num_workers=0, transform={'images':self.tform['test'], 'genders':None, 'ages':None}, shuffle=True)
         return adience_dataloader
-
-        
