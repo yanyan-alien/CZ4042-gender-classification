@@ -2,12 +2,12 @@ import deeplake
 from torchvision import transforms
 
 class DataLoaderWrapper:
-    def __init__(self,batch_size=32) -> None:
+    def __init__(self,batch_size=32, image_size=227) -> None:
         self.batch_size=batch_size
         self.tform={
                         'train': transforms.Compose([
                         transforms.ToPILImage(), # Must convert to PIL image for subsequent operations to run
-                        transforms.Resize((227,227)),
+                        transforms.Resize((image_size,image_size)),
                         transforms.RandomRotation(20), # Image augmentation
                         transforms.RandomHorizontalFlip(p=0.5), # Image augmentation
                         transforms.ToTensor(), # Must convert to pytorch tensor for subsequent operations to run
@@ -15,7 +15,7 @@ class DataLoaderWrapper:
                         ]),
                         'test': transforms.Compose([
                         transforms.ToPILImage(), # Must convert to PIL image for subsequent operations to run
-                        transforms.Resize((227,227)),
+                        transforms.Resize((image_size,image_size)),
                         transforms.ToTensor(), # Must convert to pytorch tensor for subsequent operations to run
                         transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)),
                         ])
