@@ -21,7 +21,10 @@ class DataLoaderWrapper:
                         ])
                    }
         
-        self.ds_adience =deeplake.load('hub://activeloop/adience', reset=True)
+        self.ds_adience_train = deeplake.load("hub://activeloop/adience-train", reset=True)
+        self.ds_adience_val = deeplake.load("hub://activeloop/adience-val", reset=True)
+        self.ds_adience_test = deeplake.load("hub://activeloop/adience-test", reset=True)
+
         self.ds_celebA_train = deeplake.load("hub://activeloop/celeb-a-train", reset=True)
         self.ds_celebA_val = deeplake.load("hub://activeloop/celeb-a-val", reset=True)
         self.ds_celebA_test = deeplake.load("hub://activeloop/celeb-a-test", reset=True)
@@ -33,5 +36,7 @@ class DataLoaderWrapper:
         return celebA_train_dataloader,celebA_val_dataloader,celebA_test_dataloader
 
     def initialize_adience_dataloaders(self):
-        adience_dataloader = self.ds_adience.pytorch(batch_size=self.batch_size, num_workers=0, transform={'images':self.tform['test'], 'genders':None, 'ages':None}, shuffle=True)
-        return adience_dataloader
+        adience_train_dataloader = self.ds_adience.pytorch(batch_size=self.batch_size, num_workers=0, transform={'images':self.tform['train'], 'genders':None, 'ages':None}, shuffle=True)
+        adience_val_dataloader = self.ds_adience.pytorch(batch_size=self.batch_size, num_workers=0, transform={'images':self.tform['test'], 'genders':None, 'ages':None}, shuffle=True)
+        adience_test_dataloader = self.ds_adience.pytorch(batch_size=self.batch_size, num_workers=0, transform={'images':self.tform['test'], 'genders':None, 'ages':None}, shuffle=True)
+        return adience_train_dataloader, adience_val_dataloader, adience_test_dataloader
